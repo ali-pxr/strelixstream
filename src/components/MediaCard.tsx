@@ -53,14 +53,14 @@ const MediaCard = ({ item, mediaType, className, showRating = true }: MediaCardP
         )}
 
         {/* Type Badge */}
-        <div className="absolute top-2 left-2 px-2 py-1 rounded-md bg-primary/90 text-xs font-medium uppercase">
+        <div className="absolute top-2 left-2 px-2 py-1 rounded-md bg-highlight/90 text-background text-xs font-medium uppercase">
           {type === "tv" ? "TV" : "Movie"}
         </div>
       </div>
 
       {/* Info */}
       <div className="p-3 bg-card">
-        <h3 className="font-medium text-sm truncate group-hover:text-primary transition-colors">
+        <h3 className="font-medium text-sm truncate group-hover:text-highlight transition-colors">
           {title}
         </h3>
         {year && (

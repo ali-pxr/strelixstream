@@ -1,15 +1,25 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Play, Star, Clock, Calendar } from "lucide-react";
+import { ArrowLeft, Play, Star, Clock, Calendar, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import MediaRow from "@/components/MediaRow";
 import { Button } from "@/components/ui/button";
 import { getMovieDetails, getSimilar, getBackdropUrl, getImageUrl } from "@/lib/tmdb";
+import { isInWatchlist, toggleWatchlist } from "@/lib/watchlist";
+import { toast } from "sonner";
 
 const MovieDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const movieId = parseInt(id || "0");
+  const [inWatchlist, setInWatchlist] = useState(false);
+
+  useEffect(() => {
+    if (movieId) {
+      setInWatchlist(isInWatchlist(movieId, "movie"));
+    }
+  }, [movieId]);
 
   const { data: movie, isLoading } = useQuery({
     queryKey: ["movie", movieId],
@@ -45,6 +55,20 @@ const MovieDetails = () => {
 
   const year = movie.release_date?.split("-")[0];
   const runtime = movie.runtime ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m` : null;
+
+  const handleWatchlist = () => {
+    const added = toggleWatchlist({
+      id: movie.id,
+      type: "movie",
+      title: movie.title,
+      poster_path: movie.poster_path,
+      backdrop_path: movie.backdrop_path,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+    });
+    setInWatchlist(added);
+    toast.success(added ? "Added to watchlist" : "Removed from watchlist");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -92,7 +116,7 @@ const MovieDetails = () => {
               </h1>
 
               {movie.tagline && (
-                <p className="text-lg text-primary italic mb-4">{movie.tagline}</p>
+                <p className="text-lg text-highlight italic mb-4">{movie.tagline}</p>
               )}
 
               {/* Meta */}
@@ -137,11 +161,20 @@ const MovieDetails = () => {
               {/* Actions */}
               <div className="flex flex-wrap gap-4">
                 <Link to={`/watch/movie/${movie.id}`}>
-                  <Button size="lg" className="gradient-primary hover:opacity-90 shadow-glow">
+                  <Button size="lg" className="hover-glow">
                     <Play className="w-5 h-5 mr-2 fill-current" />
                     Watch Now
                   </Button>
                 </Link>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  onClick={handleWatchlist}
+                  className={inWatchlist ? "text-highlight" : ""}
+                >
+                  <Heart className={`w-5 h-5 mr-2 ${inWatchlist ? "fill-highlight" : ""}`} />
+                  {inWatchlist ? "In Watchlist" : "Add to Watchlist"}
+                </Button>
               </div>
             </div>
           </div>

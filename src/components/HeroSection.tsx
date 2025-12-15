@@ -79,7 +79,7 @@ const HeroSection = ({ items, isLoading }: HeroSectionProps) => {
         >
           {/* Badge */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="px-3 py-1 rounded-full gradient-primary text-xs font-semibold uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-highlight text-background text-xs font-semibold uppercase tracking-wider">
               Featured
             </span>
             {rating && (
@@ -104,7 +104,7 @@ const HeroSection = ({ items, isLoading }: HeroSectionProps) => {
           {/* Buttons */}
           <div className="flex flex-wrap gap-3">
             <Link to={watchPath}>
-              <Button size="lg" className="gradient-primary hover:opacity-90 shadow-glow">
+              <Button size="lg" className="hover-glow">
                 <Play className="w-5 h-5 mr-2 fill-current" />
                 Watch Now
               </Button>

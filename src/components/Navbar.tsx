@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Search, Menu, X, Film, Tv, Sparkles } from "lucide-react";
+import { Search, Menu, X, Film, Tv, Sparkles, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
@@ -34,6 +34,7 @@ const Navbar = () => {
     { to: "/movies", label: "Movies", icon: Film },
     { to: "/tv", label: "TV Shows", icon: Tv },
     { to: "/anime", label: "Anime", icon: Sparkles },
+    { to: "/watchlist", label: "Watchlist", icon: Heart },
   ];
 
   return (
@@ -65,8 +66,8 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === link.to ? "text-primary" : "text-muted-foreground"
+                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-highlight",
+                  location.pathname === link.to ? "text-highlight" : "text-muted-foreground"
                 )}
               >
                 {link.icon && <link.icon className="w-4 h-4" />}
@@ -123,7 +124,7 @@ const Navbar = () => {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
                     location.pathname === link.to
-                      ? "bg-primary/10 text-primary"
+                      ? "bg-highlight/10 text-highlight"
                       : "text-muted-foreground hover:bg-secondary"
                   )}
                 >

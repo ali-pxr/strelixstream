@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Play, Star, Calendar, Tv } from "lucide-react";
+import { ArrowLeft, Play, Star, Calendar, Tv, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import MediaRow from "@/components/MediaRow";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getTVDetails, getSeasonDetails, getSimilar, getBackdropUrl, getImageUrl } from "@/lib/tmdb";
 import { cn } from "@/lib/utils";
+import { isInWatchlist, toggleWatchlist } from "@/lib/watchlist";
+import { toast } from "sonner";
 
 const TVDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const tvId = parseInt(id || "0");
   const [selectedSeason, setSelectedSeason] = useState(1);
+  const [inWatchlist, setInWatchlist] = useState(false);
+
+  useEffect(() => {
+    if (tvId) {
+      setInWatchlist(isInWatchlist(tvId, "tv"));
+    }
+  }, [tvId]);
 
   const { data: show, isLoading } = useQuery({
     queryKey: ["tv", tvId],
@@ -55,6 +64,20 @@ const TVDetails = () => {
 
   const year = show.first_air_date?.split("-")[0];
   const validSeasons = show.seasons?.filter(s => s.season_number > 0) || [];
+
+  const handleWatchlist = () => {
+    const added = toggleWatchlist({
+      id: show.id,
+      type: "tv",
+      title: show.name,
+      poster_path: show.poster_path,
+      backdrop_path: show.backdrop_path,
+      vote_average: show.vote_average,
+      first_air_date: show.first_air_date,
+    });
+    setInWatchlist(added);
+    toast.success(added ? "Added to watchlist" : "Removed from watchlist");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -98,7 +121,7 @@ const TVDetails = () => {
               </h1>
 
               {show.tagline && (
-                <p className="text-lg text-primary italic mb-4">{show.tagline}</p>
+                <p className="text-lg text-highlight italic mb-4">{show.tagline}</p>
               )}
 
               <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -137,12 +160,23 @@ const TVDetails = () => {
                 {show.overview}
               </p>
 
-              <Link to={`/watch/tv/${show.id}/1/1`}>
-                <Button size="lg" className="gradient-primary hover:opacity-90 shadow-glow">
-                  <Play className="w-5 h-5 mr-2 fill-current" />
-                  Watch Now
+              <div className="flex flex-wrap gap-4">
+                <Link to={`/watch/tv/${show.id}/1/1`}>
+                  <Button size="lg" className="hover-glow">
+                    <Play className="w-5 h-5 mr-2 fill-current" />
+                    Watch Now
+                  </Button>
+                </Link>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  onClick={handleWatchlist}
+                  className={inWatchlist ? "text-highlight" : ""}
+                >
+                  <Heart className={`w-5 h-5 mr-2 ${inWatchlist ? "fill-highlight" : ""}`} />
+                  {inWatchlist ? "In Watchlist" : "Add to Watchlist"}
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -194,13 +228,13 @@ const TVDetails = () => {
                   </div>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-background/50">
-                  <Play className="w-8 h-8 text-primary fill-current" />
+                  <Play className="w-8 h-8 text-foreground fill-current" />
                 </div>
               </div>
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm text-primary font-medium">
+                  <span className="text-sm text-highlight font-medium">
                     Episode {episode.episode_number}
                   </span>
                   {episode.runtime && (
@@ -209,7 +243,7 @@ const TVDetails = () => {
                     </span>
                   )}
                 </div>
-                <h3 className="font-medium truncate group-hover:text-primary transition-colors">
+                <h3 className="font-medium truncate group-hover:text-highlight transition-colors">
                   {episode.name}
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
