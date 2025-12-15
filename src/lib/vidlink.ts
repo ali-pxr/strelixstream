@@ -13,7 +13,7 @@ export interface VidLinkOptions {
 }
 
 const defaultOptions: VidLinkOptions = {
-  primaryColor: "a855f7",
+  primaryColor: "ffffff",
   secondaryColor: "4a4a4a",
   iconColor: "ffffff",
   icons: "vid",

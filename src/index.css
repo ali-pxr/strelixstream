@@ -15,8 +15,8 @@
     --popover: 240 10% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 240 10% 4%;
 
     --secondary: 240 10% 12%;
     --secondary-foreground: 0 0% 98%;
@@ -24,25 +24,26 @@
     --muted: 240 10% 16%;
     --muted-foreground: 240 5% 64%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 240 10% 4%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 240 10% 18%;
     --input: 240 10% 18%;
-    --ring: 262 83% 58%;
+    --ring: 0 0% 100%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
     --gradient-hero: linear-gradient(180deg, hsl(240 10% 4% / 0) 0%, hsl(240 10% 4%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%);
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(280 80% 50%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(262 83% 58% / 0.15) 0%, transparent 70%);
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(0 0% 85%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(0 0% 100% / 0.15) 0%, transparent 70%);
     
-    --shadow-glow: 0 0 60px hsl(262 83% 58% / 0.3);
+    --shadow-glow: 0 0 30px hsl(0 0% 100% / 0.4);
+    --shadow-glow-hover: 0 0 50px hsl(0 0% 100% / 0.6);
     --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
     --shadow-card-hover: 0 8px 40px hsl(0 0% 0% / 0.6);
     
@@ -51,12 +52,12 @@
 
     --sidebar-background: 240 10% 4%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 262 83% 58%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 240 10% 4%;
     --sidebar-accent: 240 10% 12%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 10% 18%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-ring: 0 0% 100%;
   }
 
   .dark {
@@ -66,19 +67,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 8%;
     --popover-foreground: 0 0% 98%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 240 10% 4%;
     --secondary: 240 10% 12%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 10% 16%;
     --muted-foreground: 240 5% 64%;
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 240 10% 4%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 240 10% 18%;
     --input: 240 10% 18%;
-    --ring: 262 83% 58%;
+    --ring: 0 0% 100%;
   }
 }
 
@@ -116,6 +117,19 @@
 
   .shadow-glow {
     box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-glow-hover {
+    box-shadow: var(--shadow-glow-hover);
+  }
+
+  .hover-glow {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow-hover);
+    transform: translateY(-2px);
   }
 
   .shadow-card {
