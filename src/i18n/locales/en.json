@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Home",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "anime": "Anime",
+    "watchlist": "Watchlist",
+    "search": "Search movies, shows..."
+  },
+  "settings": {
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode"
+  },
+  "home": {
+    "title": "Stream Your Favorites",
+    "subtitle": "Watch unlimited movies, TV shows, and anime",
+    "continueWatching": "Continue Watching",
+    "trendingMovies": "Trending Movies",
+    "popularShows": "Popular Shows",
+    "newReleases": "New Releases"
+  },
+  "movies": {
+    "title": "Movies",
+    "noMovies": "No movies found"
+  },
+  "tvShows": {
+    "title": "TV Shows",
+    "noShows": "No TV shows found"
+  },
+  "anime": {
+    "title": "Anime",
+    "noAnime": "No anime found"
+  },
+  "search": {
+    "title": "Search Results",
+    "noResults": "No results found for your search",
+    "placeholder": "Search movies, shows, anime..."
+  },
+  "details": {
+    "rating": "Rating",
+    "releaseDate": "Release Date",
+    "overview": "Overview",
+    "cast": "Cast",
+    "episodes": "Episodes",
+    "addToWatchlist": "Add to Watchlist",
+    "removeFromWatchlist": "Remove from Watchlist",
+    "watch": "Watch Now",
+    "share": "Share"
+  },
+  "watchlist": {
+    "title": "My Watchlist",
+    "empty": "Your watchlist is empty",
+    "addSome": "Add some movies or shows to get started"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back",
+    "viewMore": "View More"
+  }
+}

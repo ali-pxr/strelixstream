@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, Menu, X, Film, Tv, Sparkles, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import ThemeSwitcher from "./ThemeSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,11 +35,11 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { to: "/", label: "Home", icon: null },
-    { to: "/movies", label: "Movies", icon: Film },
-    { to: "/tv", label: "TV Shows", icon: Tv },
-    { to: "/anime", label: "Anime", icon: Sparkles },
-    { to: "/watchlist", label: "Watchlist", icon: Heart },
+    { to: "/", label: t("nav.home"), icon: null },
+    { to: "/movies", label: t("nav.movies"), icon: Film },
+    { to: "/tv", label: t("nav.tvShows"), icon: Tv },
+    { to: "/anime", label: t("nav.anime"), icon: Sparkles },
+    { to: "/watchlist", label: t("nav.watchlist"), icon: Heart },
   ];
 
   return (
@@ -82,7 +86,7 @@ const Navbar = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search movies, shows..."
+                  placeholder={t("nav.search")}
                   className="w-56 lg:w-72 pl-10 pr-4 py-2 bg-secondary/50 border border-border/50 rounded-full text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                 />
               </div>
